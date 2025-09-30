@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">Categorías</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+          href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Spline+Sans%3Awght%40400%3B500%3B700" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+        .main-container {
+            display: flex;
+            flex-direction: column; /* Coloca el footer al final */
+            min-height: 100vh; /* Altura mínima de la ventana */
+            background-color: #ffffff; /* Fondo blanco */
+        }
+        .content {
+            flex: 1; /* Permite que el contenido ocupe el espacio restante */
+            padding: 20px; /* Espaciado interno */
+            color: #333; /* Color del texto oscuro para mayor legibilidad */
+        }
+        .info-box {
+            background-color: #f8f9fa; /* Color de fondo claro para los cuadros de información */
+            border-radius: 0.5rem; /* Bordes redondeados */
+        }
+        .table-container {
+            background-color: #f8f9fa; /* Color de fondo claro para la tabla */
+            border-radius: 0.5rem; /* Bordes redondeados */
+        }
+    </style>
+</head>
+<body style='font-family: "Spline Sans", "Noto Sans", sans-serif;'>
+
+<!-- CONTENEDOR PRINCIPAL -->
+<div class="main-container">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Hecho con Amor</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/index">
+                            <i class="bi bi-house-door me-2"></i>Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/usuarios">
+                            <i class="bi bi-people me-2"></i>Usuarios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/categorias">
+                            <i class="bi bi-tags me-2"></i>Categorías
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/productos">
+                            <i class="bi bi-box-seam me-2"></i>Productos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/clientes">
+                            <i class="bi bi-box-seam me-2"></i>Clientes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENIDO -->
+    <div class="px-40 flex flex-1 justify-center py-5 content">
+        <div class="flex flex-col max-w-[960px] flex-1">
+
+            <!-- Título y botón -->
+            <div class="flex flex-wrap justify-between gap-3 p-4">
+                <p class="text-gray-900 tracking-light text-[32px] font-bold leading-tight" th:text="${pageTitle}">Categorías</p>
+                <a th:href="@{/categorias/new}"
+                   class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-xl h-8 px-4 bg-[#263645] text-white text-sm font-medium">
+                    Nueva categoría
+                </a>
+            </div>
+
+            <!-- Cuadros estadísticos -->
+            <div class="flex flex-wrap gap-4 p-4">
+                <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 bg-[#263645]">
+                    <p class="text-white text-base font-medium">Total Categorías</p>
+                    <p class="text-white text-2xl font-bold" th:text="${totalCategorias}">0</p>
+                </div>
+                <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 bg-[#263645]">
+                    <p class="text-white text-base font-medium">Categoría con más productos</p>
+                    <p class="text-white text-2xl font-bold" th:text="${categoriaMasProductos}">-</p>
+                </div>
+                <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 bg-[#263645]">
+                    <p class="text-white text-base font-medium">Categoría más vendida</p>
+                    <p class="text-white text-2xl font-bold" th:text="${categoriaMasVendida}">-</p>
+                </div>
+            </div>
+
+            <!-- Tabla de categorías -->
+            <h2 class="text-gray-900 text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Todas las categorías</h2>
+            <div class="px-4 py-3">
+                <div class="overflow-hidden rounded-xl border border-[#364d63] bg-[#f8f9fa]">
+                    <table class="w-full">
+                        <thead>
+                        <tr class="bg-[#1b2631]">
+                            <th class="px-4 py-3 text-left text-white text-sm font-medium">ID</th>
+                            <th class="px-4 py-3 text-left text-white text-sm font-medium">Nombre</th>
+                            <th class="px-4 py-3 text-left text-white text-sm font-medium">Descripción</th>
+                            <th class="px-4 py-3 text-left text-white text-sm font-medium">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="c : ${categorias}" class="border-t border-t-[#364d63]">
+                            <td class="px-4 py-2 text-gray-900 text-sm" th:text="${c.idCategoria}">1</td>
+                            <td class="px-4 py-2 text-gray-900 text-sm" th:text="${c.nombre}">Tortas</td>
+                            <td class="px-4 py-2 text-[#96adc5] text-sm" th:text="${c.descripcion}">Descripción</td>
+                            <td class="px-4 py-2 flex gap-2">
+                                <a th:href="@{/categorias/editar/{id}(id=${c.idCategoria})}"
+                                   class="bg-yellow-500 hover:bg-yellow-600 text-white text-xs px-3 py-1 rounded">Editar</a>
+                                <a th:href="@{/categorias/eliminar/{id}(id=${c.idCategoria})}"
+                                   class="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-1 rounded">Eliminar</a>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(categorias)}" class="border-t border-t-[#364d63]">
+                            <td colspan="4" class="text-center text-white py-3">No hay categorías registradas.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Botón extra -->
+            <div class="p-4">
+                <a th:href="@{/productos/nuevo}"
+                   class="flex items-center justify-center rounded-xl h-10 px-4 border border-[#364d63] text-white text-sm hover:bg-[#263645]">
+                    Crear producto
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#000000] text-white text-center py-4">
+        <p>&copy; 2023 Dulce Delicia. Todos los derechos reservados.</p>
+    </footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

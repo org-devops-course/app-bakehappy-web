@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${producto.nombre}">Detalle del Producto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .producto-img {
+            max-height: 950px;
+            object-fit: contain;
+            margin: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <div class="card shadow-lg border-0 mx-auto" style="max-width: 900px;">
+        <div class="row g-0 align-items-center">
+            <!-- Imagen a la izquierda -->
+            <div class="col-md-6 p-3 text-center">
+                <img th:if="${producto.imagen}"
+                     th:src="@{/productos/uploads/{filename}(filename=${producto.imagen})}"
+                     alt="Imagen del producto"
+                     class="producto-img img-fluid rounded">
+            </div>
+
+            <!-- Información a la derecha -->
+            <div class="col-md-6 p-4">
+                <div class="w-full md:w-[360px] flex flex-col">
+                    <h2 class="text-[#181511] text-[28px] font-bold leading-tight mb-3" th:text="${producto.nombre}"></h2>
+                    <p class="text-[#181511] text-base mb-3" th:text="${producto.descripcion}"></p>
+                    <p class="text-[#8a7860] text-sm mb-3">$<span th:text="${producto.precio}"></span></p>
+                    <!--<p class="text-sm text-gray-500 mb-3"><strong>Stock:</strong> <span th:text="${producto.stock}"></span></p> -->
+                    <p class="text-sm text-gray-500 mb-6"><strong>Categoría:</strong> <span th:text="${producto.categoria.nombre}"></span></p>
+
+                    <!-- Botones de cantidad -->
+                    <h3 class="text-[#181511] text-lg font-bold mb-2">Cantidad</h3>
+                    <div th:if="${productosEspeciales.contains(producto.nombre)}" class="producto" th:attr="data-nombre=${producto.nombre}">
+                        <button class="btn-cantidad btn btn-danger" data-unidades="25" data-precio="30">25 unidades</button>
+                        <button class="btn-cantidad" data-unidades="50" data-precio="60">50 unidades</button>
+                        <button class="btn-cantidad" data-unidades="100" data-precio="110">100 unidades</button>
+                    </div>
+
+                    <div th:if="${productosPies.contains(producto.nombre)}" class="producto" th:attr="data-nombre=${producto.nombre}">
+                        <button class="btn-cantidad btn btn-succes" data-unidades="25" data-precio="38">25 unidades</button>
+                        <button class="btn-cantidad" data-unidades="50" data-precio="73">50 unidades</button>
+                        <button class="btn-cantidad" data-unidades="100" data-precio="140">100 unidades</button>
+                    </div>
+
+                    <div th:if="${productosCarnes.contains(producto.nombre)}" class="producto" th:attr="data-nombre=${producto.nombre}">
+                        <button class="btn-cantidad btn btn-succes" data-unidades="25" data-precio="40">25 unidades</button>
+                        <button class="btn-cantidad" data-unidades="50" data-precio="80">50 unidades</button>
+                        <button class="btn-cantidad" data-unidades="100" data-precio="155">100 unidades</button>
+                    </div>
+
+                    <div th:if="${productosBurger.contains(producto.nombre)}" class="producto" th:attr="data-nombre=${producto.nombre}">
+                        <button class="btn-cantidad btn btn-succes" data-unidades="25" data-precio="50">25 unidades</button>
+                        <button class="btn-cantidad" data-unidades="50" data-precio="95">50 unidades</button>
+                        <button class="btn-cantidad" data-unidades="100" data-precio="185">100 unidades</button>
+                    </div>
+
+                    <div th:if="${productosMini.contains(producto.nombre)}" class="producto" th:attr="data-nombre=${producto.nombre}">
+                        <button class="btn-cantidad btn btn-succes" data-unidades="24" data-precio="45">24 unidades</button>
+                        <button class="btn-cantidad" data-unidades="48" data-precio="90">48 unidades</button>
+                        <button class="btn-cantidad" data-unidades="96" data-precio="180">96 unidades</button>
+                    </div>
+
+                    <div th:if="${productosPizza.contains(producto.nombre)}" class="producto" th:attr="data-nombre=${producto.nombre}">
+                        <button class="btn-cantidad btn btn-succes" data-unidades="25" data-precio="32">25 unidades</button>
+                        <button class="btn-cantidad" data-unidades="50" data-precio="60">50 unidades</button>
+                        <button class="btn-cantidad" data-unidades="100" data-precio="110">100 unidades</button>
+                    </div>
+
+                    <div th:if="${productosAlitas.contains(producto.nombre)}" class="producto" th:attr="data-nombre=${producto.nombre}">
+                        <button class="btn-cantidad btn btn-succes" data-unidades="25" data-precio="57.50">25 unidades</button>
+                        <button class="btn-cantidad" data-unidades="50" data-precio="110">50 unidades</button>
+                        <button class="btn-cantidad" data-unidades="100" data-precio="210">100 unidades</button>
+                    </div>
+
+                    <div th:if="${productosShot.contains(producto.nombre)}" class="producto" th:attr="data-nombre=${producto.nombre}">
+                        <button class="btn-cantidad btn btn-succes" data-unidades="25" data-precio="70">25 unidades</button>
+                        <button class="btn-cantidad" data-unidades="50" data-precio="140">50 unidades</button>
+                        <button class="btn-cantidad" data-unidades="100" data-precio="260">100 unidades</button>
+                    </div>
+                </div>
+                <!-- Botón volver -->
+                <a th:href="@{/ecommerce/vista-productos}" class="btn btn-secondary mt-4 w-100">
+                    Volver al catálogo
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    document.querySelectorAll('.btn-cantidad').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const unidades = this.getAttribute('data-unidades');
+            const idProducto = [[${producto.idProducto}]];
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `/ecommerce/carrito/agregar/` + idProducto;
+            const inputCantidad = document.createElement('input');
+            inputCantidad.type = 'hidden';
+            inputCantidad.name = 'cantidad';
+            inputCantidad.value = unidades;
+            form.appendChild(inputCantidad);
+            document.body.appendChild(form);
+            form.submit();
+        });
+    });
+</script>
+
+</body>
+</html>

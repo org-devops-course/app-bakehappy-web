@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Usuarios</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        .main-container {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+            background-color: #ffffff;
+        }
+        .content-wrapper {
+            margin: 0 auto; /* centrado */
+            flex: 1;
+            padding: 40px 30px; /* más espacio alrededor */
+        }
+        .table-container {
+            overflow-x: auto;
+            border-radius: 0.5rem;
+            border: 1px solid #314d68;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 14px 16px; /* celdas más amplias */
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        th {
+            background-color: #182634;
+            color: white;
+        }
+    </style>
+
+</head>
+<body class='font-sans'>
+
+<div class="main-container">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Hecho con Amor</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/index">
+                            <i class="bi bi-house-door me-2"></i>Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/usuarios">
+                            <i class="bi bi-people me-2"></i>Usuarios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/categorias">
+                            <i class="bi bi-tags me-2"></i>Categorías
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/productos">
+                            <i class="bi bi-box-seam me-2"></i>Productos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/clientes">
+                            <i class="bi bi-box-seam me-2"></i>Clientes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- CONTENIDO -->
+    <div class="content-wrapper">
+        <div class="flex justify-between items-center mb-6">
+            <p class="text-gray-900 text-2xl font-bold">Gestión de Administradores</p>
+            <a th:href="@{/usuarios/new}" class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-blue-700">
+                ➕ Añadir Administrador
+            </a>
+        </div>
+
+        <!-- Cuadros de resumen -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+            <div class="flex flex-col gap-2 rounded-xl p-6 border border-[#314d68] bg-white shadow">
+                <p class="text-gray-900 text-base font-medium">Total de Administradores</p>
+                <p class="text-gray-900 text-2xl font-bold" th:text="${totalAdmins}">5</p>
+            </div>
+            <div class="flex flex-col gap-2 rounded-xl p-6 border border-[#314d68] bg-white shadow">
+                <p class="text-gray-900 text-base font-medium">Administradores Activos</p>
+                <p class="text-gray-900 text-2xl font-bold" th:text="${adminsActivos}">4</p>
+            </div>
+        </div>
+
+        <!-- Tabla -->
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Email</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="usuario : ${usuarios}">
+                    <td th:text="${usuario.idUsuario}"></td>
+                    <td th:text="${usuario.nombre}"></td>
+                    <td th:text="${usuario.apellidos}"></td>
+                    <td class="text-blue-500" th:text="${usuario.email}"></td>
+                    <td>
+                            <span th:text="${usuario.estado}"
+                                  class="px-3 py-1 rounded-full text-xs font-medium"
+                                  th:classappend="${usuario.estado == 'Activo'} ? 'bg-green-600 text-white' : 'bg-red-600 text-white'">
+                            </span>
+                    </td>
+                    <td class="flex gap-2">
+                        <a th:href="@{'/usuarios/editar/' + ${usuario.idUsuario}}" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+                            Editar
+                        </a>
+                        <a th:href="@{'/usuarios/eliminar/' + ${usuario.idUsuario}}" onclick="return confirm('¿Está seguro de eliminar este usuario?');" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white text-center py-4">
+        <p>&copy; 2023 Dulce Delicia. Todos los derechos reservados.</p>
+    </footer>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

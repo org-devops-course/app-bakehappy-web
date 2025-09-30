@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del Producto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif; /* Cambiar la fuente a Poppins */
+        }
+        .card {
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .card-text {
+            font-size: 1.1rem;
+        }
+        .img-product {
+            max-width: 100%; /* Tamaño máximo de la imagen */
+            height: auto; /* Mantiene la proporción de la imagen */
+        }
+    </style>
+</head>
+<body>
+
+<!-- CONTENEDOR PRINCIPAL -->
+<div class="main-container">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Hecho con Amor</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/index">
+                            <i class="bi bi-house-door me-2"></i>Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/usuarios">
+                            <i class="bi bi-people me-2"></i>Usuarios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/categorias">
+                            <i class="bi bi-tags me-2"></i>Categorías
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/productos">
+                            <i class="bi bi-box-seam me-2"></i>Productos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/clientes">
+                            <i class="bi bi-box-seam me-2"></i>Clientes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Detalle del Producto</h1>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-md-6 d-flex justify-content-center align-items-center">
+                            <img th:if="${producto.imagen}" th:src="@{/productos/uploads/{filename}(filename=${producto.imagen})}" alt="Imagen del producto" class="img-product" />
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${producto.nombre}">Alfajorcitos</h5>
+                                <p class="card-text"><i class="bi bi-info-circle me-2"></i><strong>Descripción:</strong> <span th:text="${producto.descripcion}">Deliciosos alfajores con manjar, hechos con recetas tradicionales, perfectos para disfrutar en cualquier momento.</span></p>
+                                <p class="card-text"><i class="bi bi-cash me-2"></i><strong>Precio:</strong> $<span th:text="${producto.precio}">4.50</span></p>
+                                <p class="card-text"><i class="bi bi-box me-2"></i><strong>Stock:</strong> <span th:text="${producto.stock}">200</span></p>
+                                <p class="card-text"><i class="bi bi-tags me-2"></i><strong>Categoría:</strong> <span th:text="${producto.categoria.nombre}">Bocaditos</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a th:href="@{/productos}" class="btn btn-secondary"><i class="bi bi-arrow-left me-2"></i>Volver</a>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#000000] text-white text-center py-4">
+        <p>&copy; 2023 Dulce Delicia. Todos los derechos reservados.</p>
+    </footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

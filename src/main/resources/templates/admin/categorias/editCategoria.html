@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">Editar Categoría</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Fuente y Tailwind -->
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+</head>
+<body class='bg-white min-h-screen flex flex-col' style='font-family:"Plus Jakarta Sans","Noto Sans",sans-serif;'>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Hecho con Amor</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/index">
+                        <i class="bi bi-house-door me-2"></i>Inicio
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/usuarios">
+                        <i class="bi bi-people me-2"></i>Usuarios
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/categorias">
+                        <i class="bi bi-tags me-2"></i>Categorías
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/productos">
+                        <i class="bi bi-box-seam me-2"></i>Productos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/clientes">
+                        <i class="bi bi-box-seam me-2"></i>Clientes
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Contenido -->
+<main class="px-40 py-5 flex justify-center flex-1">
+    <div class="w-full max-w-[960px]">
+        <!-- Imagen banner -->
+        <div class="rounded-lg min-h-[218px] bg-cover bg-center mb-6"
+             style='background-image:url("https://lh3.googleusercontent.com/aida-public/AB6AXuDDI0dqYk1BEINKg3SsJ_Y2uvF-s7IN0W3YVZP3CDCzJmOWINk0iv1FE_GqQh1pmbvIlVTJoAegFuE7v2qVwrn96Xwi19HqPfIVaKMVgr5p5EAlmvGGyjUjxNRV_sVlqHxWV9tmZkoVCKbROEwkh1ALPGacjo8_Z_SzEARUV2rKhZ7qTRtqsE0RsbrryY5WI-VNwWRTaw-bNG_t3zZZt6cYDVAnqDWIW9yhDKh8M1hgmDn65Yo24OYeQ-n2OYwvkXI0i3lrdhOVw7jc");'>
+        </div>
+
+        <!-- Título -->
+        <div class="flex flex-wrap justify-between gap-3 p-4">
+            <p class="text-2xl font-bold text-gray-900 min-w-72" th:text="${pageTitle}">Editar Categoría</p>
+        </div>
+
+        <!-- Formulario -->
+        <form th:action="@{/categorias/actualizar/{id}(id=${categoria.idCategoria})}"
+              th:object="${categoria}" method="post" class="bg-white rounded-lg shadow p-6">
+
+            <!-- Campo: Nombre -->
+            <div class="mb-4">
+                <label class="block text-base font-medium text-gray-900 mb-2">Nombre *</label>
+                <input th:field="*{nombre}" type="text" required
+                       placeholder="Ingrese el nombre de la categoría"
+                       class="form-input w-full rounded-lg border border-gray-300 h-14 px-4 text-base text-gray-900 placeholder-gray-500 focus:border-gray-300 focus:ring-0">
+                <div class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+            </div>
+
+            <!-- Campo: Descripción -->
+            <div class="mb-4">
+                <label class="block text-base font-medium text-gray-900 mb-2">Descripción</label>
+                <textarea th:field="*{descripcion}" rows="3"
+                          placeholder="Ingrese una breve descripción"
+                          class="form-input w-full rounded-lg border border-gray-300 px-4 py-3 text-base text-gray-900 placeholder-gray-500 focus:border-gray-300 focus:ring-0"></textarea>
+            </div>
+
+            <!-- Botones -->
+            <div class="flex justify-center gap-4 mt-6">
+                <button type="submit"
+                        class="bg-[#42c5f0] text-gray-900 font-bold rounded-lg px-6 py-2 hover:opacity-90">
+                    Actualizar
+                </button>
+                <a th:href="@{/categorias}" class="bg-gray-200 text-gray-900 font-bold rounded-lg px-6 py-2 hover:bg-gray-300">
+                    Cancelar
+                </a>
+            </div>
+
+            <!-- Error global -->
+            <div th:if="${errorMsg}" class="bg-red-100 text-red-700 p-3 rounded mt-4" th:text="${errorMsg}"></div>
+        </form>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-[#000000] text-white text-center py-4">
+    <p>&copy; 2023 Dulce Delicia. Todos los derechos reservados.</p>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

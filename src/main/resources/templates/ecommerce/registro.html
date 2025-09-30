@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Cliente</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Roboto', sans-serif; }
+    .font-playfair { font-family: 'Playfair Display', serif; }
+  </style>
+</head>
+<body class="bg-[#FDF8F0]">
+
+<div class="min-h-screen grid grid-cols-1 md:grid-cols-2">
+  <!-- Imagen lateral -->
+  <div class="relative">
+    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXTpOfYIJkzHI7sEzCX4S-ofMW2prjj7VOFXaD_5HHoTOfSd2yn8DdLQgnVRtJc0ExgWc8wg1nXmx9yQzaoSD_gLGaEo1v33rP8H2N8Pbfv7_iqXds-zS8-qaxnoVUw2llDTchMLDLHfAKprdNDJl1zo3xzXthekDoFGMUkOH8F3rTj6txeTkNjLw8RjkbTT1C4cHZajvbWuQsHNmA9l5kraf9WBeQcxQMN40XSLpbqu-Ye9jXZI8XakBz9ytP9mxUu-jOBZRB9Z3w"
+         alt="Repostería fina" class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent md:bg-gradient-to-l"></div>
+    <div class="absolute bottom-10 right-10 text-white text-right">
+      <h1 class="text-4xl lg:text-6xl font-playfair font-bold">Hecho con Amor</h1>
+      <p class="mt-2 text-lg">La repostería más fina, a un clic de distancia.</p>
+    </div>
+  </div>
+
+  <!-- Formulario -->
+  <div class="flex items-center justify-center p-8 md:p-12">
+    <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
+      <h2 class="mb-3 text-3xl font-playfair text-[#A0522D]">Crear Cuenta</h2>
+      <p class="text-gray-600 mb-6">Únete a nuestra comunidad de amantes de la repostería</p>
+
+      <form th:action="@{/registro}" th:object="${cliente}" method="post" class="space-y-4">
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Nombre</label>
+          <input type="text" th:field="*{nombre}" placeholder="Ingrese su nombre"
+                 class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D2B48C]" required>
+          <div class="text-red-500 text-sm" th:errors="*{nombre}"></div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Apellidos</label>
+          <input type="text" th:field="*{apellidos}" placeholder="Ingrese sus apellidos"
+                 class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D2B48C]" required>
+          <div class="text-red-500 text-sm" th:errors="*{apellidos}"></div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Correo</label>
+          <input type="email" th:field="*{correo}" placeholder="ejemplo@correo.com"
+                 class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D2B48C]" required>
+          <div class="text-red-500 text-sm" th:errors="*{correo}"></div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Teléfono</label>
+          <input type="text" th:field="*{telefono}" placeholder="Número de teléfono"
+                 class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D2B48C]" required>
+          <div class="text-red-500 text-sm" th:errors="*{telefono}"></div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Contraseña</label>
+          <input type="password" th:field="*{password}" placeholder="Ingrese su contraseña"
+                 class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D2B48C]" required>
+          <div class="text-red-500 text-sm" th:errors="*{password}"></div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Dirección</label>
+          <input type="text" th:field="*{direccion}" placeholder="Dirección completa"
+                 class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D2B48C]" required>
+          <div class="text-red-500 text-sm" th:errors="*{direccion}"></div>
+        </div>
+
+        <button type="submit"
+                class="w-full py-3 font-semibold text-white bg-[#A0522D] rounded-lg hover:bg-[#B87333] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A0522D] transition-transform hover:scale-105">
+          Registrarse
+        </button>
+      </form>
+
+      <p class="mt-6 text-center text-gray-700">
+        ¿Ya tienes cuenta? <a th:href="@{/login}" class="text-[#A0522D] font-semibold hover:underline">Inicia sesión</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

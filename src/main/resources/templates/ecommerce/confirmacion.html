@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmación de Compra</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;700;800">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-[#fcf8f9]" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
+
+<!-- Header -->
+<header class="flex items-center justify-between border-b border-[#f3e7eb] px-10 py-3">
+    <div class="flex items-center gap-4 text-[#1b0e12]">
+        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+        <h2 class="text-lg font-bold">Hecho con Amor</h2>
+    </div>
+    <div class="flex items-center gap-4">
+
+    </div>
+</header>
+
+<!-- Contenido -->
+<main class="px-40 py-5 flex justify-center">
+    <div class="w-full max-w-[800px] bg-white rounded-lg shadow p-6">
+        <!-- Mensaje -->
+        <h2 class="text-[28px] font-bold text-center text-[#1b0e12] flex items-center justify-center gap-2">
+            <i data-lucide="check-circle" class="w-7 h-7 text-green-600"></i>
+            <span th:text="${confirmacion.mensaje}">Gracias por su compra</span>
+        </h2>
+        <p class="text-center text-[#1b0e12] mt-2">
+            Número de Pedido: <span th:text="${confirmacion.numeroPedido}">#0001</span>
+        </p>
+        <!-- Resumen de la compra -->
+        <div class="mt-8">
+            <h3 class="text-lg font-bold mb-4">Detalle de la Compra</h3>
+            <div th:each="item : ${confirmacion.resumenCompra}" class="flex items-center mb-4">
+                <img th:src="@{/productos/uploads/{filename}(filename=${item.imagen})}" alt="Imagen" class="w-16 h-16 rounded mr-4"/>
+                <div class="flex-1">
+                    <div class="font-bold" th:text="${item.nombreProducto}"></div>
+                    <div class="text-sm text-gray-500" th:text="${item.categoria}"></div>
+                    <div class="text-sm">Cantidad: <span th:text="${item.cantidad}"></span></div>
+                </div>
+                <div class="text-right">
+                    <div class="text-sm">Precio: S/ <span th:text="${item.precioUnitario}"></span></div>
+                    <div class="text-sm">Subtotal: S/ <span th:text="${item.subtotal}"></span></div>
+                </div>
+            </div>
+            <hr class="my-4"/>
+            <div class="flex justify-between font-bold text-lg">
+                <span>Total Pagado:</span>
+                <span th:text="${confirmacion.total}"></span>
+            </div>
+        </div>
+        <!-- Total -->
+        <div class="flex items-center mt-4 gap-2 text-lg font-bold">
+            <i data-lucide="credit-card" class="w-5 h-5 text-[#eb477e]"></i>
+            Total Pagado: <span th:text="${confirmacion.total}"></span>
+        </div>
+
+        <!-- Botones -->
+        <div class="flex gap-3 mt-6">
+            <a th:href="@{/ecommerce/productos}" class="flex items-center justify-center gap-2 bg-[#f3e7eb] text-[#1b0e12] rounded-lg px-4 py-2 font-bold w-full">
+                <i data-lucide="home" class="w-5 h-5"></i>
+                Volver a la tienda
+            </a>
+            <a th:href="@{/ecommerce/descargar-factura/{idPedido}(idPedido=${confirmacion.numeroPedido})}"
+               class="flex items-center justify-center gap-2 bg-[#f3e7eb] text-[#1b0e12] rounded-lg px-4 py-2 font-bold w-full">
+                <i data-lucide="file-text" class="w-5 h-5"></i>
+                Descargar Factura PDF
+            </a>
+        </div>
+
+    </div>
+</main>
+
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>

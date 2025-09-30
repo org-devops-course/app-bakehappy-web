@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Registro Administrador</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style type="text/tailwindcss">
+    body {
+        font-family: 'Roboto', sans-serif;
+    }
+    .font-playfair {
+        font-family: 'Playfair Display', serif;
+    }
+  </style>
+</head>
+<body class="bg-[#F8F4F1]">
+
+<div class="flex items-center justify-center min-h-screen">
+  <div class="relative flex flex-col m-6 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
+
+    <!-- Formulario -->
+    <div class="flex flex-col justify-center p-8 md:p-14 md:w-1/2">
+      <span class="mb-3 text-4xl font-bold font-playfair text-green-700">Registro de Administrador</span>
+      <span class="font-light text-gray-700 mb-8">
+        Crea tu cuenta para acceder al panel
+      </span>
+      <form class="flex flex-col space-y-6" action="/admin/registro" method="post">
+
+        <div class="relative">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">person</span>
+          <input name="nombre" type="text" placeholder="Nombre" required
+                 class="w-full py-3 pl-12 pr-4 bg-[#F8F4F1] border border-transparent rounded-lg
+                   focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"/>
+        </div>
+
+        <div class="relative">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">badge</span>
+          <input name="apellidos" type="text" placeholder="Apellidos" required
+                 class="w-full py-3 pl-12 pr-4 bg-[#F8F4F1] border border-transparent rounded-lg
+                   focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"/>
+        </div>
+
+        <div class="relative">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">mail</span>
+          <input name="email" type="email" placeholder="Correo electrónico" required
+                 class="w-full py-3 pl-12 pr-4 bg-[#F8F4F1] border border-transparent rounded-lg
+                   focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"/>
+        </div>
+
+        <div class="relative">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">lock</span>
+          <input name="clave" type="password" placeholder="Contraseña" required
+                 class="w-full py-3 pl-12 pr-4 bg-[#F8F4F1] border border-transparent rounded-lg
+                   focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"/>
+        </div>
+
+        <button type="submit"
+                class="w-full py-3 font-semibold text-white bg-green-600 rounded-lg
+                 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+                 focus:ring-green-500 transition-all duration-300 transform hover:scale-105">
+          Registrar
+        </button>
+      </form>
+
+      <div class="mt-8 text-center text-gray-700">
+        ¿Ya tienes cuenta?
+        <a href="/admin/login" class="font-semibold text-green-700 hover:underline">
+          Inicia sesión aquí
+        </a>
+      </div>
+    </div>
+
+    <!-- Imagen lateral -->
+    <div class="relative hidden w-5/12 md:block rounded-r-2xl">
+      <img alt="Panel de administración"
+           class="w-full h-full object-contain rounded-r-2xl bg-[#F8F4F1]"
+           src="https://i.pinimg.com/1200x/2d/d8/6e/2dd86ebcd88de6716ada66910bf0ee41.jpg"/>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

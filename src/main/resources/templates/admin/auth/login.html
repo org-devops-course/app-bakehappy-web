@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Administrador</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style type="text/tailwindcss">
+    body {
+        font-family: 'Roboto', sans-serif;
+    }
+    .font-playfair {
+        font-family: 'Playfair Display', serif;
+    }
+  </style>
+</head>
+<body class="bg-[#F8F4F1]">
+
+<div class="flex items-center justify-center min-h-screen">
+  <div class="relative flex flex-col m-6 bg-white rounded-2xl md:flex-row md:space-y-0 shadow-lg">
+
+    <!-- Imagen lateral -->
+    <div class="relative hidden md:flex items-center justify-center w-1/2 overflow-hidden rounded-l-2xl bg-[#EADFD8]">
+      <img alt="Patrón minimalista de repostería" class="w-full h-full object-cover"
+           src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUiMvcV9o8kYHWz8Oh-HekzfIgc3_sqkBYa-rUe4jxiN-G7opF6-wT9FFhUoL8cjpYGx1dyUWfETo1-S7ysA4DhRBOSHFcfsZm9mq_kf5YADAAkxFe4Ytf5RoSebDOuTkOAjsimZQTuXKrVwRGp6CTHAR-I34mOXJfJxRQOLv0XWKcSzn1M71fp5P2ghY6WDhAsCiP9zksU3-obCPNbTWnY3CRHICAApvTn2cOC2022BCwhQ3C4wmrI-j1m1pKmorKc7Sq3KMhaB6b"/>
+    </div>
+
+    <!-- Formulario -->
+    <div class="flex flex-col justify-center items-center p-8 md:p-14 md:w-1/2 h-full">
+      <div class="w-full max-w-md flex flex-col flex-grow justify-center">
+        <span class="mb-3 text-4xl md:text-5xl font-bold font-playfair text-[#4A2C2A]">Panel de Administración</span>
+        <span class="font-light text-gray-700 mb-8">Accede con tus credenciales</span>
+
+        <form th:action="@{/admin/login}" method="post" class="flex flex-col flex-grow justify-center space-y-6">
+
+          <!-- Campo email -->
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">person</span>
+            <input type="email" name="email" placeholder="Correo electrónico"
+                   class="w-full py-3 pl-12 pr-4 bg-[#F8F4F1] border border-transparent rounded-lg
+                              focus:outline-none focus:ring-2 focus:ring-[#C3A69A] transition-colors" required>
+          </div>
+
+          <!-- Campo contraseña -->
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">lock</span>
+            <input type="password" name="clave" placeholder="Contraseña"
+                   class="w-full py-3 pl-12 pr-4 bg-[#F8F4F1] border border-transparent rounded-lg
+                              focus:outline-none focus:ring-2 focus:ring-[#C3A69A] transition-colors" required>
+          </div>
+
+          <!-- Mensaje de error -->
+          <div th:if="${error}"
+               class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded text-center"
+               th:text="${error}"></div>
+
+          <!-- Botón -->
+          <button type="submit"
+                  class="w-full py-3 font-semibold text-white bg-[#8B6B61] rounded-lg
+                           hover:bg-[#A1887F] focus:outline-none focus:ring-2 focus:ring-offset-2
+                           focus:ring-[#8B6B61] transition-all duration-300 transform hover:scale-105">
+            Ingresar
+          </button>
+        </form>
+
+        <!-- Enlace de registro -->
+        <div class="mt-8 text-center text-gray-700">
+          ¿No tienes cuenta?
+          <a th:href="@{/admin/registro}" class="font-semibold text-[#8B6B61] hover:underline">Regístrate aquí</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
