@@ -34,7 +34,7 @@ RUN addgroup -g 1001 -S appgroup && \
 WORKDIR /app
 
 # Copiar el JAR desde la etapa de build
-COPY --from=build /app/target/proyecto-integrado-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/app-bakehappy-web-0.0.1-SNAPSHOT.jar app.jar
 
 # Crear directorio para archivos subidos
 RUN mkdir -p /app/uploads && \

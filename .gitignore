@@ -1,10 +1,34 @@
+# Documentación generada
 HELP.md
+
+# Directorios de compilación
 target/
+build/
+out/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-### STS ###
+### Spring Boot ###
+# Archivos de configuración sensibles
+application-*.properties
+application-*.yml
+application-*.yaml
+!application.properties
+!application.yml
+!application.yaml
+!application-docker.properties
+!application-docker.yml
+!application-docker.yaml
+
+# Logs de Spring Boot
+*.log
+logs/
+spring.log
+
+### STS (Spring Tool Suite) ###
 .apt_generated
 .classpath
 .factorypath
@@ -14,10 +38,11 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
+*.iml.bak
 
 ### NetBeans ###
 /nbproject/private/
@@ -25,9 +50,140 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
+*.code-workspace
+
+### Eclipse ###
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+### Maven ###
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+### Gradle ###
+.gradle
+**/build/
+!src/**/build/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+.gradletasknamecache
+
+### Sistema Operativo ###
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+### Archivos temporales ###
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.#*
+\#*#
+
+### Bases de datos ###
+*.db
+*.sqlite
+*.sqlite3
+h2/
+hsqldb/
+
+### Docker ###
+.dockerignore
+docker-compose.override.yml
+.env.local
+.env.*.local
+
+### Node.js (si usas frontend) ###
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+### Archivos de configuración local ###
+config/local/
+*.local
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+### Archivos de respaldo ###
+*.bak
+*.backup
+*.old
+*.orig
+
+### Archivos de certificados y claves ###
+*.p12
+*.jks
+*.keystore
+*.truststore
+*.pem
+*.key
+*.crt
+*.cer
+
+### Archivos de IDE adicionales ###
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+.metadata/

@@ -4,20 +4,20 @@ services:
   # Base de datos MySQL
   mysql:
     image: mysql:8.0
-    container_name: pasteleria-mysql
+    container_name: bakehappy-mysql
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: mysql
       MYSQL_DATABASE: BD_ProyectoPasteleria
-      MYSQL_USER: pasteleria_user
-      MYSQL_PASSWORD: pasteleria_pass
+      MYSQL_USER: bakehappy_user
+      MYSQL_PASSWORD: bakehappy_pass
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     networks:
-      - pasteleria-network
+      - bakehappy-network
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 20s
@@ -28,7 +28,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    container_name: pasteleria-app
+    container_name: bakehappy-app
     restart: unless-stopped
     ports:
       - "8082:8082"
@@ -60,7 +60,7 @@ services:
     volumes:
       - app_uploads:/app/uploads
     networks:
-      - pasteleria-network
+      - bakehappy-network
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8082/actuator/health"]
       interval: 30s
@@ -71,14 +71,14 @@ services:
   # Adminer para administración de BD (opcional)
   adminer:
     image: adminer:4.8.1
-    container_name: pasteleria-adminer
+    container_name: bakehappy-adminer
     restart: unless-stopped
     ports:
       - "8080:8080"
     depends_on:
       - mysql
     networks:
-      - pasteleria-network
+      - bakehappy-network
     environment:
       ADMINER_DEFAULT_SERVER: mysql
 
@@ -89,5 +89,5 @@ volumes:
     driver: local
 
 networks:
-  pasteleria-network:
+  bakehappy-network:
     driver: bridge
